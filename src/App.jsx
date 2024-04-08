@@ -1,53 +1,44 @@
 import './App.css';
-import { usePersonaje } from "./hooks/useFecthCharacters"
+import { usePersonaje } from "./hooks/useFecthCharacters.jsx"
 
-async function App() {
+function App() {
 
   const urlPokemon = 'https://pokeapi.co/api/v2/pokemon/';
   const urlRick = 'https://rickandmortyapi.com/api/character/?name=';
-  const personaje = usePersonaje("mew", urlPokemon);
+  const nombrePokemon = "mew"
+  const nombreRick = "Rick Sanchez"
+  const personaje = usePersonaje(urlPokemon, nombrePokemon);
+  const personajeRick = usePersonaje(urlRick, nombreRick);
 
 
-  if (!personaje) {
+  if (!personaje && !personajeRick) {
     return <div>Cargando...</div>;
+  } else {
+    return (
+      
+      <>
+    
+        <div>
+          <h1>Pokemon Data</h1>
+          <h2>{personaje.name}</h2>
+          <img src={personaje.sprites.front_default} alt={personaje.name} />
+        </div>
+        <div>
+        <h1>Rcik Data</h1>
+          <h2>{personajeRick.results[0].name}</h2>
+          <img src={personajeRick.results[0].image} alt={personajeRick.results[0].name} />
+        </div>
+
+      </>
+    );
   }
 
 
-  return (
-    <>
 
-      <h1>Pokemon Data</h1>
-      <h2>{personaje.name}</h2>
-      <img src={personaje.sprites.front_default} alt={personaje.name} />
 
-    </>
-  );
+
 }
 
 export default App;
 
 
-/*
-
-{pokemon == null ? (
-
-        < h2 > Cargando</h2 >
-
-      ) : (
-        <div>
-          <h2>{pokemon.name}</h2>
-          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-        </div>
-      )}  
-
-<h2>Rick and Morty Data</h2>
-      {rick == null ? (
-        < h2 > Cargando</h2 >
-
-      ) : (
-
-        <div>
-          <h2>{rick.name}</h2>
-          <img src={rick.image} alt={rick.name} />
-        </div>
-      )}*/

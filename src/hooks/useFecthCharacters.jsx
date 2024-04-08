@@ -1,13 +1,16 @@
 
 import { useState, useEffect } from 'react';
 
-export  const usePersonaje = (nombre = "mew",url="https://pokeapi.co/api/v2/pokemon/") => {
+export  const usePersonaje = (url="https://pokeapi.co/api/v2/pokemon/",nombre="mew") => {
+    
     const [personaje, setPersonaje] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
-            try {                
-                const response = await fetch(url + nombre);               
+            try {         
+                   
+                const response = await fetch(url+nombre);               
                 const data = await response.json();
+              
                 setPersonaje(data);
             } catch (error) {
                 console.log(error);
@@ -16,7 +19,7 @@ export  const usePersonaje = (nombre = "mew",url="https://pokeapi.co/api/v2/poke
 
         fetchData();
 
-    },[nombre, url]);
+    },[url]);
     return personaje;
 };
 
